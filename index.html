@@ -19,23 +19,6 @@
             font-size: 16px;
         }
 
-        img {
-            width: 100px;
-            height: 100px;
-            position: absolute;
-            top: 10px;
-            display: none; /* Hide images by default */
-        }
-
-        #gatoImg {
-            left: 10px;
-            top: 10px;
-        }
-
-        #ninaImg {
-            right: 10px;
-            top: 10px;
-        }
 
         #newPage, #blankPage, #finalPage {
             display: none;
@@ -71,10 +54,10 @@
         }
     </style>
 </head>
-<body>
+<body style="background-image: url('https://rony260519.github.io/silver-dollop/startetc.jpeg');"> 
     
     <div id="firstLine">
-        <img id="gatoImgStart" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato">
+        <img id="gatoImgStart" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato" class="gato-imgs img-adj">
         <div class="chat-bubble" id="gatoBubbleStart">
             <div class="text" id="gatoTextStart"></div>
             <div class="options" id="options" style="display: none;">
@@ -85,18 +68,18 @@
     </div>
     
     <div id="game" style="display: none;">
-        <img id="gatoImgInside" src="https://rony260519.github.io/silver-dollop/catinside.png" alt="Gato">
+        <img id="gatoImgInside" src="https://rony260519.github.io/silver-dollop/catinside.png" alt="Gato" class="gato-imgs img-adj" style="top: 24.5%;">
         <div class="chat-bubble" id="gatoBubbleInside">
             <div class="text" id="gatoTextinside"></div>
         </div>
     
-        <div id="codeScreen"></div>
+        <div id="codeScreen" style="float: right;"></div>
     </div>
 
     <div style="display: none;" id="dialoguePlanet">
         <div id="dialogue">
-            <img id="gatoImg" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato">
-            <img id="ninaImg" src="https://rony260519.github.io/silver-dollop/dany1.png" alt="Niña">
+            <img id="gatoImg" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato" class="gato-imgs img-adj">
+            <img id="ninaImg" src="https://rony260519.github.io/silver-dollop/dany1.png" alt="Niña" class="nina-imgs img-adj">
             
             <div class="chat-bubble" id="gatoBubble">
                 <div class="text" id="gatoText"></div>
@@ -107,7 +90,7 @@
         </div>
     
         <div id="newPage">
-            <img id="gatoImgNew" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato">
+            <img id="gatoImgNew" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato" class="gato-imgs img-adj">
             <div class="chat-bubble" id="gatoBubbleNew">
                 <div class="text" id="gatoTextNew"></div>
             </div>
@@ -133,15 +116,15 @@
         </div>
     
         <div id="finalPage">
-            <img id="gatoImgFinal" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato">
-            <img id="ninaImgFinal" src="https://rony260519.github.io/silver-dollop/dany1.png" alt="Niña">
+            <img id="gatoImgFinal" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato" class="gato-imgs img-adj">
+            <img id="ninaImgFinal" src="https://rony260519.github.io/silver-dollop/dany1.png" alt="Niña" class="nina-imgs img-adj">
             <div class="chat-bubble" id="finalBubble">
                 <div class="text" id="finalText"></div>
             </div>
-        </div>
+        </div> 
     
         <div id="returnHome">
-    
+            
         </div>
     
         <div id="theEnd">
@@ -173,15 +156,144 @@
         const gatoImgFinal = document.getElementById('gatoImgFinal');
         const ninaImgFinal = document.getElementById('ninaImgFinal');
         const name = document.getElementById("name");
-        const imgsProj = document.getElementById("img-proj");
+        const imgProj = document.getElementById("img-proj");
         const descript = document.getElementById("descript");
         const linkProj = document.getElementById("link-proj");
         const optional = document.getElementById("optional");
         const gatoBubbleOpt = document.getElementById('gatoBubbleOpt');
         const gatoTextOpt = document.getElementById('gatoTextOpt');
         const gatoImgOpt = document.getElementById('gatoImgOpt');
+        const gatoImgInside = document.getElementById('gatoImgInside');
+        const gatoBubbleInside = document.getElementById('gatoBubbleInside');
+        const gatoTextinside = document.getElementById('gatoTextinside');
 
-        const obj = {
+
+        const backgrounds = {
+            game: 'https://rony260519.github.io/silver-dollop/inside.png',
+            dialogue: 'https://rony260519.github.io/silver-dollop/danyplanet.png',
+            final: 'https://rony260519.github.io/silver-dollop/repofound.png'
+        };
+
+        function updateBackground(page) {
+            document.body.style.backgroundImage = `url('${backgrounds[page]}')`;
+        }
+
+        function joinMission(join) {
+            options.style.display = 'none';
+            if (join) {
+                typeText(gatoTextStart, '¡Genial! Vamos a comenzar nuestra aventura.', () => {
+                    setTimeout(() => {
+                        firstLine.style.display = "none";
+                        game.style.display = "block";
+                        updateBackground('game');
+                    }, 2000);
+                });
+            } else {
+                typeText(gatoTextStart, 'Muy bien, parece que debemos partir, lo siento amigo.');
+            }
+        }
+
+        function typeText(element, text, callback) {
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            element.textContent = '';
+            typeWriter();
+        }
+
+        window.onload = function() {
+            gatoImgStart.style.display = 'block';
+            gatoBubbleStart.style.display = 'block';
+            typeText(gatoTextStart, "Hola, soy el Capitán Gato. Bienvenido tripulante, ¿quieres unirte a la misión?", () => {
+                options.style.display = 'flex';
+            });
+        };
+
+
+
+
+
+
+
+function onDialogueInside() {
+    const codes = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    
+    // Mostrar el diálogo inicial del gato solo una vez
+    TextCatInside();
+    
+    codes.map(code => {
+        const buttonAnswer = document.createElement('button');
+        buttonAnswer.textContent = code;
+        buttonAnswer.addEventListener('click', () => {
+            if (code === "5") {
+                typeText(gatoTextinside, '¡Genial! Hemos arrancado.', () => {
+                    setTimeout(() => {
+                        dialoguePlanet.style.display = 'block';
+                        game.style.display = 'none';
+                        updateBackground('dialogue');
+                    }, 2000);
+                });
+            } else {
+                typeText(gatoTextinside, 'Intenta otra vez, recuerda cuanto es 4 + 1');
+            }
+        });
+        codeScreen.appendChild(buttonAnswer);
+    });
+
+    // Función para escribir texto con efecto de tipeo
+    function typeText(element, text, callback) {
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            } else if (callback) {
+                callback();
+            }
+        }
+        element.textContent = '';  // Limpiar el texto antes de escribir
+        typeWriter();
+    }
+
+    // Mostrar el diálogo inicial del gato solo una vez
+    function TextCatInside() {
+        gatoImgInside.style.display = 'block';
+        gatoBubbleInside.style.display = 'block';
+        typeText(gatoTextinside, 'Rápido, debemos arrancar, el código es 4^2 - 1');
+    }
+}
+
+const observerInside = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        if (mutation.attributeName === "style") {
+            const display = window.getComputedStyle(mutation.target).display;
+            if (display === "block") {
+                onDialogueInside();
+            }
+        }
+    });
+});
+
+// Configurar el observador para observar cambios en los atributos de game
+observerInside.observe(game, { attributes: true });
+
+
+
+
+
+
+
+
+
+const obj = {
             h1: [
                 "Survey Form",
                 "Tribute Page",
@@ -222,8 +334,8 @@
 
         function displayProject(index) {
             name.textContent = obj.h1[index];
-            imgsProj.src = obj.src[index];
-            imgsProj.alt = obj.alt[index];
+            imgProj.src = obj.src[index];
+            imgProj.alt = obj.alt[index];
             descript.textContent = obj.text[index];
             linkProj.href = obj.href[index];
         }
@@ -242,6 +354,8 @@
 
 
 
+
+function onDialoguePlanetShow() {
         const startDialogue = [
             { speaker: 'gato', text: 'Mira, he encontrado algo, parecen ser los proyectos de Dany...' },
             { speaker: 'gato', text: '¡Echemosle un vistazo!' }
@@ -309,6 +423,7 @@
 
         function startNewPage() {
             document.getElementById('dialogue').style.display = 'none'; // Hide the original dialogue
+            updateBackground('final');
             newPage.style.display = 'block'; // Show the new page
             currentDialogueIndex = 0; // Reset the dialogue index
             const elements = {
@@ -345,77 +460,25 @@
         });
 
         startInitialDialogue();
-
-
-
-
-
-
-
-        function joinMission(join) {
-    options.style.display = 'none';
-    if (join) {
-        typeText(gatoTextStart, '¡Genial! Vamos a comenzar nuestra aventura.', () => {
-            setTimeout(() => {
-                firstLine.style.display = "none";
-                game.style.display = "block";
-            }, 2000);
-        });
-    } else {
-        typeText(gatoTextStart, 'Muy bien, parece que debemos partir, lo siento amigo.');
-    }
 }
 
-function typeText(element, text, callback) {
-    let i = 0;
-    function typeWriter() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
-        } else if (callback) {
-            callback();
-        }
-    }
-    element.textContent = '';
-    typeWriter();
-}
-
-window.onload = function() {
-    gatoImgStart.style.display = 'block';
-    gatoBubbleStart.style.display = 'block';
-    typeText(gatoTextStart, "Hola, soy el Capitán Gato. Bienvenido tripulante, ¿quieres unirte a la misión?", () => {
-        options.style.display = 'flex';
-    });
-};
-
-const codes = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "0"
-]
-
-codes.map(code => {
-    const buttonAnswer = document.createElement('button');
-    buttonAnswer.textContent = code;
-    buttonAnswer.addEventListener('click',  () => {
-        if (code === "5") {
-            alert("Continue la aventura");
-            dialoguePlanet.style.display = 'block';
-            game.style.display = 'none';
-        } else {
-            alert("Intente otra vez");
+// Crear un observador de mutaciones para detectar cambios en el estilo de display
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        if (mutation.attributeName === "style") {
+            const display = window.getComputedStyle(mutation.target).display;
+            if (display === "block") {
+                onDialoguePlanetShow();
+            }
         }
     });
-    codeScreen.appendChild(buttonAnswer);
 });
+
+// Configurar el observador para observar cambios en los atributos de dialoguePlanet
+observer.observe(dialoguePlanet, { attributes: true });
+
+
+
     </script>
 </body>
 </html>
