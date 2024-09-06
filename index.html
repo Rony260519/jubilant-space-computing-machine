@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diálogo entre Gato y Niña</title>
@@ -29,27 +30,19 @@
             align-items: center;
             gap: 10px;
         }
-
-        #proj-content {
-            text-align: center;
-        }
-
-        #proj-content img {
-            max-width: 100%;
-            height: auto;
-        }
     </style>
 </head>
 <body style="background-image: url('https://rony260519.github.io/silver-dollop/startetc.jpeg');"> 
     
     <div id="firstLine">
         <img id="gatoImgStart" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato" class="gato-imgs img-adj">
+        <div class="options" id="options" style="display: none;">
+            <button id="option-yes" class="butt-opt" style="background-color: rgb(180, 242, 87);" onclick="joinMission(true)">Sí</button>
+            <button id="option-no" class="butt-opt" style="background-color: rgb(243, 84, 70);" onclick="joinMission(false)">No</button>
+        </div>
+        
         <div class="chat-bubble" id="gatoBubbleStart">
             <div class="text" id="gatoTextStart"></div>
-            <div class="options" id="options" style="display: none;">
-                <button class="option-yes" onclick="joinMission(true)">Sí</button>
-                <button class="option-no" onclick="joinMission(false)">No</button>
-            </div>
         </div>
     </div>
     
@@ -86,18 +79,18 @@
             <button id="continueButton">Continuar Historia</button>
     
             <div id="recop">
-                <button class="change" onclick="showPreviousProject()"><</button>
+                <button class="change" onclick="showPreviousProject()" style="left: 5px;"><</button>
     
                 <div id="proj-content">
-                    <h4 id="name"></h4>
+                    <h4 id="name" style="font-size: 20px;"></h4>
                     <img id="img-proj" alt="Project Image" >
                     <div id="flex">
-                        <p id="descript"></p>
-                        <a id="link-proj" target="_blank">Show me this project</a>
+                        <p id="descript" style="font-size: 18px;"></p>
+                        <a id="link-proj" target="_blank">Show me this project</i></a>
                     </div>
                 </div>
     
-                <button class="change" onclick="showNextProject()">></button>
+                <button class="change" onclick="showNextProject()" style="right: 5px;">></button>
             </div>
         </div>
     
@@ -106,15 +99,19 @@
             <img id="ninaImgFinal" src="https://rony260519.github.io/silver-dollop/dany1.png" alt="Niña" class="nina-imgs img-adj">
             <div class="chat-bubble" id="finalBubble">
                 <div class="text" id="finalText"></div>
+                <div class="contacts" id="contact" style="display: none;">
+                    <a class="link-c" href="" target="_blank">
+                        <img class="img-c" src="https://seekicon.com/free-icon-download/github-square_4.svg" alt="github icon" title="github profile">
+                    </a>
+                    <a class="link-c" href="mailto:danielavegapena115@gmail.com" target="_blank">
+                        <img class="img-c" src="https://clipartcraft.com/images/gmail-logo-round-3.png" alt="Gmail icon" title="Gmail">
+                    </a>
+                    <a class="link-c" href="https://www.linkedin.com/in/daniela-vega-pena-971221288?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+                        <img class="img-c" src="https://cdn.freebiesupply.com/logos/large/2x/linkedin-icon-logo-png-transparent.png" alt="linkedin icon" title="linkedin profile">
+                    </a>
+                </div>
             </div>
-        </div> 
-    
-        <div id="returnHome">
-            
-        </div>
-    
-        <div id="theEnd">
-    
+
         </div>
     </div>
     </div>
@@ -152,6 +149,7 @@
         const gatoImgInside = document.getElementById('gatoImgInside');
         const gatoBubbleInside = document.getElementById('gatoBubbleInside');
         const gatoTextinside = document.getElementById('gatoTextinside');
+        const contact = document.getElementById('contact');
 
 
         const backgrounds = {
@@ -175,7 +173,12 @@
                     }, 2000);
                 });
             } else {
-                typeText(gatoTextStart, 'Muy bien, parece que debemos partir, lo siento amigo.');
+                typeText(gatoTextStart, 'Muy bien, parece que debemos partir, lo siento amigo.', () => {
+                    setTimeout(() => {
+                        alert ('LA PAGINA VA A CERRARSE...');
+                        window.close();
+                    }, 2000);
+                });
             }
         }
 
@@ -369,7 +372,8 @@ function onDialoguePlanetShow() {
             { speaker: 'nina', text: '¿Qué les ha parecido?' },
             { speaker: 'gato', text: 'No están mal, quizás un día llegues a ser de los mejores...' },
             { speaker: 'gato', text: 'Creo que debemos irnos ya, gracias por recibirnos en tu planeta.' },
-            { speaker: 'nina', text: 'Por nada, fue divertido jajaja, ¡hasta pronto!' }
+            { speaker: 'nina', text: 'Por nada, fue divertido jajaja, ¡hasta pronto!' },
+            { speaker: 'nina', text: 'Si desean contactarme pueden hacerlo, aqui les dejo como:'}
         ];
 
         let currentDialogueIndex = 0;
@@ -419,6 +423,7 @@ function onDialoguePlanetShow() {
             showDialogue(newDialogue, elements, () => {
                 newPage.style.display = 'none';
                 blankPage.style.display = 'block';
+                blankPage.style.backgroundColor = 'aliceblue';
             });
         }
 
@@ -430,7 +435,7 @@ function onDialoguePlanetShow() {
                 gato: { bubble: finalBubble, textElement: finalText, img: gatoImgFinal },
                 nina: { bubble: finalBubble, textElement: finalText, img: ninaImgFinal }
             };
-            showDialogue(finalDialogue, elements, () => {});
+            showDialogue(finalDialogue, elements, () => {contact.style.display = "block";});
         }
 
         function startInitialDialogue() {
