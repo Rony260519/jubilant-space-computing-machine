@@ -11,6 +11,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    overflow: hidden;
 }
 
 
@@ -115,13 +116,13 @@ body {
 
 .gato-imgs {
     right: 70%;
-    width: 350px;
-    top: 22%;
+    width: 28%;
+    top: 20%;
 }
 
 .nina-imgs {
     left: 70%;
-    width: 350px;
+    width: 28%;
     top: 20%;
 }
 
@@ -209,4 +210,35 @@ body {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .gato-imgs {
+        right: 65%;
+        width: 35%;
+        top: 60%;
+    }
+    
+    
+    .nina-imgs {
+        left: 70%;
+        width: 35%;
+        top: 60%;
+    }
+
+    .text {
+        font-size: 15px;
+    }
+}
+
+
+@media screen and (max-height: 368px) {
+    .gato-imgs {
+        top: 35%;
+    }
+    
+    
+    .nina-imgs {
+        top: 35%;
+    }
 }
