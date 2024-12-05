@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diálogo entre Gato y Niña</title>
     <style>
-        #newPage, #blankPage, #finalPage {
+        #newPage, #finalPage {
             display: none;
             text-align: center;
             padding: 20px;
@@ -22,6 +22,9 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            position: relative;
+            left: 45%;
+            top: 10px;
         }
 
         #recop {
@@ -75,25 +78,6 @@
             </div>
         </div>
     
-        <div id="blankPage">
-            <button id="continueButton">Continuar Historia</button>
-    
-            <div id="recop">
-                <button class="change" onclick="showPreviousProject()" style="left: 5px;"><</button>
-    
-                <div id="proj-content">
-                    <h4 id="name" style="font-size: 20px;"></h4>
-                    <img id="img-proj" alt="Project Image" >
-                    <div id="flex">
-                        <p id="descript" style="font-size: 18px;"></p>
-                        <a id="link-proj" target="_blank">Show me this project</i></a>
-                    </div>
-                </div>
-    
-                <button class="change" onclick="showNextProject()" style="right: 5px;">></button>
-            </div>
-        </div>
-    
         <div id="finalPage">
             <img id="gatoImgFinal" src="https://rony260519.github.io/silver-dollop/capcat.png" alt="Gato" class="gato-imgs img-adj">
             <img id="ninaImgFinal" src="https://rony260519.github.io/silver-dollop/dany1.png" alt="Niña" class="nina-imgs img-adj">
@@ -112,6 +96,28 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div id="blankPage" style="display: none;">
+        <button id="continueButton">Continuar Historia</button>
+
+        <div id="recop">
+            <button class="change" onclick="showPreviousProject()" style="left: 5px;"><</button>
+
+            <div id="proj-content" onmouseleave="onMouse(false)">
+                <div id="onMouse">
+                    <h4 id="name" style="font-size: 20px;"></h4>
+                    <img id="img-proj" alt="Project Image" onmouseover="onMouse(true)">
+                </div>
+                
+                <div id="flex" style="display: none;">
+                    <p id="descript" style="font-size: 18px;"></p>
+                    <a id="link-proj" target="_blank">Show me this project</a>
+                </div>
+            </div>
+
+            <button class="change" onclick="showNextProject()" style="right: 5px;">></button>
         </div>
     </div>
     </div>
@@ -173,10 +179,12 @@
                     }, 2000);
                 });
             } else {
-                typeText(gatoTextStart, 'Muy bien, parece que debemos partir, lo siento amigo.', () => {
+                typeText(gatoTextStart, 'Entiendo, entonces pasemos a los proyectos de una vez!', () => {
                     setTimeout(() => {
-                        alert ('LA PAGINA VA A CERRARSE...');
-                        window.close();
+                        firstLine.style.display = "none";
+                        blankPage.style.display = "block";
+                        blankPage.removeChild(continueButton);
+
                     }, 2000);
                 });
             }
@@ -283,40 +291,45 @@ observerInside.observe(game, { attributes: true });
 
 
 
-const obj = {
+        const obj = {
             h1: [
                 "Survey Form",
                 "Tribute Page",
                 "Technical Documentation Page",
-                "Product Landing Page"
+                "Product Landing Page",
+                "Snake"
             ],
 
             src: [
                 "https://rony260519.github.io/silver-dollop/proj-4.png",
                 "https://rony260519.github.io/silver-dollop/proj-3.png",
                 "https://rony260519.github.io/silver-dollop/proj-2.png",
-                "https://rony260519.github.io/silver-dollop/proj-1.png"
+                "https://rony260519.github.io/silver-dollop/proj-1.png",
+                "https://rony260519.github.io/silver-dollop/snake.png"
             ],
 
             alt: [
                 "Survey Form",
                 "Tribute Page",
                 "Technical Documentation Page",
-                "Product Landing Page"
+                "Product Landing Page",
+                "Snake"
             ],
 
             text: [
                 "This project is a survey, 100% HTML and CSS, it is about a supposed website that needs to know the opinion of its users and how to improve its website.",
                 "Do you know Marie Curie? She was a key link in the history of Physics, this project attempts to summarize her professional life a little.",
                 "Sometimes it is somewhat complicated to learn a programming language or markup language (HTML), which is why this technical documentation page tries to compile the fundamentals to learn HTML and CSS from 0% through basic concepts and examples.",
-                "One of my most recent projects is this Amazon model, which although it does not work yet, I am working to improve it, thus making it operable, but only for study purposes."
+                "One of my most recent projects is this Amazon model, which although it does not work yet, I am working to improve it, thus making it operable, but only for study purposes.",
+                "Just available for PC, this funny game help me to improve my skills with HTML, CSS and JavaScript."
             ],
 
             href: [
                 "https://dany260519.github.io/prog-1/",
                 "https://dany260519.github.io/prog-2/",
                 "https://dany260519.github.io/prog-3/",
-                "https://dany260519.github.io/prog-4/"
+                "https://dany260519.github.io/prog-4/",
+                "https://dany260519.github.io/snake/"
             ]
         };
 
@@ -341,6 +354,20 @@ const obj = {
         }
 
         displayProject(currentIndex);
+
+   
+        function onMouse(show) {
+            const onmouse = document.getElementById("onMouse");
+            const flex = document.getElementById("flex");
+
+            if (show) {
+                flex.style.display = "block";
+                onmouse.style.display = "none";
+            } else {
+                flex.style.display = "none";
+                onmouse.style.display = "block";
+            }
+        }
 
 
 
@@ -423,12 +450,10 @@ function onDialoguePlanetShow() {
             showDialogue(newDialogue, elements, () => {
                 newPage.style.display = 'none';
                 blankPage.style.display = 'block';
-                blankPage.style.backgroundColor = 'aliceblue';
             });
         }
 
         function startFinalPage() {
-            blankPage.style.display = 'none';
             finalPage.style.display = 'block';
             currentDialogueIndex = 0; // Reset the dialogue index
             const elements = {
