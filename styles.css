@@ -17,24 +17,41 @@ body {
 
 @media screen and (min-width: 768px) {
     #img-proj {
-        width: 850px;
-        height: 450px;
+        width: 750px;
+        height: 400px;
         border-radius: 10px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         -ms-border-radius: 10px;
         -o-border-radius: 10px;
+        position: relative;
     }
 
     #proj-content {
         text-align: center;
+        height: 450px;
+        width: 800px;
+        cursor: pointer;
+        position: relative;
+        margin: 20px;
+    }
+
+    #blankPage {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        width: 100%;
+        background-color: #ffffff;
     }
 
     #flex {
-        max-width: 850px;
+        max-width: 550px;
         height: 100px;
         display: flex;
         flex-direction: column;
+        position: relative;
+        left: 15%;
+        top: 40%;
     }
 
     #link-proj {
@@ -200,7 +217,7 @@ body {
     font-weight: 600;
     font-style: normal;
     min-width: 70px;
-    position: absolute;
+    position: relative;
 }
 
 .change:hover {
